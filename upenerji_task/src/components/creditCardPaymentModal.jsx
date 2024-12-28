@@ -7,11 +7,14 @@ const CreditCardPaymentModal = ({ id, onClose }) => {
   const dispatch = useDispatch();
 
   const [amount, setAmount] = useState("");
+  const [cvv, setCvv] = useState("");
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    onClose();
-    const newData = Number(amount);
-    dispatch(incrementBalance({ id, amount: newData }));
+    if (cvv === "000") {
+      const newData = Number(amount);
+      dispatch(incrementBalance({ id, amount: newData }));
+      onClose();
+    } else alert("CVV hatalı");
   };
 
   return (
@@ -49,6 +52,7 @@ const CreditCardPaymentModal = ({ id, onClose }) => {
             <input
               type="text"
               className="border border-black w-full text-black"
+              onChange={(e) => setCvv(e.target.value)}
             />
           </div>
           <div className="w-[80%]">

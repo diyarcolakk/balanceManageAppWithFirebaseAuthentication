@@ -2,21 +2,27 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementBalance } from "../redux/feature/balanceReducer";
 import CreditCardPaymentModal from "./creditCardPaymentModal";
+import LoanPaymentModal from "./loanPaymentModal";
 
 const Balance = () => {
   const balanceData = useSelector((state) => state.balance);
 
   const [isTable, setIsTable] = useState(false);
-  const [isModal, setIsModal] = useState(false);
+  const [isModalCreditCard, setIsModalCreditCard] = useState(false);
+  const [isModalLoan, setIsModalLoan] = useState(false);
   const [id, setId] = useState(null);
 
-  const dispatch = useDispatch();
-  const handleIncreaseBalance = (id) => {
-    dispatch(incrementBalance({ id, amount: 200 }));
-  };
+  // const dispatch = useDispatch();
+  // const handleIncreaseBalance = (id) => {
+  //   dispatch(incrementBalance({ id, amount: 200 }));
+  // };
 
-  const modalHandler = (id) => {
-    setIsModal((prev) => !prev);
+  const setIsModalCreditCardHandler = (id) => {
+    setIsModalCreditCard((prev) => !prev);
+    setId(id);
+  };
+  const setIsModalLoanHandler = (id) => {
+    setIsModalLoan((prev) => !prev);
     setId(id);
   };
 
@@ -53,13 +59,13 @@ const Balance = () => {
                       Create Coupon
                     </button>
                     <button
-                      onClick={() => handleIncreaseBalance(id)}
+                      onClick={() => setIsModalLoanHandler(id)}
                       className="ml-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
                     >
                       Loan Payment
                     </button>
                     <button
-                      onClick={() => modalHandler(id)}
+                      onClick={() => setIsModalCreditCardHandler(id)}
                       className="ml-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
                     >
                       Credit Card payment
@@ -71,8 +77,14 @@ const Balance = () => {
           </table>
         </div>
       )}
-      {isModal && (
-        <CreditCardPaymentModal id={id} onClose={() => setIsModal(false)} />
+      {isModalCreditCard && (
+        <CreditCardPaymentModal
+          id={id}
+          onClose={() => setIsModalCreditCard(false)}
+        />
+      )}
+      {isModalLoan && (
+        <LoanPaymentModal id={id} onClose={() => setIsModalLoan(false)} />
       )}
 
       {isTable && (
