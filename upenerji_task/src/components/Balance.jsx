@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import CreditCardPaymentModal from "./creditCardPaymentModal";
 import LoanPaymentModal from "./loanPaymentModal";
-
+import CreateCoupon from "./CreateCoupon";
 const Balance = () => {
   const balanceData = useSelector((state) => state.balance);
-
   const [isTable, setIsTable] = useState(false);
   const [isModalCreditCard, setIsModalCreditCard] = useState(false);
   const [isModalLoan, setIsModalLoan] = useState(false);
+  const [isCouponModal, setIsCouponModal] = useState(false);
+
   const [id, setId] = useState(null);
 
-  // const dispatch = useDispatch();
-  // const handleIncreaseBalance = (id) => {
-  //   dispatch(incrementBalance({ id, amount: 200 }));
-  // };
-
-  const setIsModalCreditCardHandler = (id) => {
+  const modalCreditCardHandler = (id) => {
     setIsModalCreditCard((prev) => !prev);
     setId(id);
   };
-  const setIsModalLoanHandler = (id) => {
+  const modalLoanHandler = (id) => {
     setIsModalLoan((prev) => !prev);
+    setId(id);
+  };
+  const modalCouponCreateHandler = (id) => {
+    setIsCouponModal((prev) => !prev);
     setId(id);
   };
 
@@ -54,17 +54,20 @@ const Balance = () => {
                   <td className="border px-4 py-2">{type}</td>
                   <td className="border px-4 py-2">{amount}</td>
                   <td className="border px-4 py-2 text-right">
-                    <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-300">
+                    <button
+                      className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-300"
+                      onClick={() => modalCouponCreateHandler(id)}
+                    >
                       Create Coupon
                     </button>
                     <button
-                      onClick={() => setIsModalLoanHandler(id)}
+                      onClick={() => modalLoanHandler(id)}
                       className="ml-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
                     >
                       Loan Payment
                     </button>
                     <button
-                      onClick={() => setIsModalCreditCardHandler(id)}
+                      onClick={() => modalCreditCardHandler(id)}
                       className="ml-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
                     >
                       Credit Card payment
@@ -85,7 +88,9 @@ const Balance = () => {
       {isModalLoan && (
         <LoanPaymentModal id={id} onClose={() => setIsModalLoan(false)} />
       )}
-
+      {isCouponModal && (
+        <CreateCoupon id={id} onClose={() => setIsCouponModal(false)} />
+      )}
       {isTable && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {balanceData.map(({ id, type, amount }) => (

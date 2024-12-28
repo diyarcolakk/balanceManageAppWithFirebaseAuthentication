@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const loanModalCheck = (tcNo) => {
   const validateTCKimlik = (tc) => {
     // Regex ile temel kontrol: 11 haneli, ilk hane 0 olamaz
