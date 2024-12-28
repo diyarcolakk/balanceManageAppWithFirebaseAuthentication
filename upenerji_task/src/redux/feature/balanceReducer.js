@@ -17,6 +17,16 @@ const balanceSlice = createSlice({
     setBalance: (state, action) => {
       state.balance = action.payload;
     },
+    incrementBalance: (state, action) => {
+      const { id, amount } = action.payload;
+      console.log(id, amount);
+      console.log(action.payload);
+
+      const balanceItem = state.balance.find((item) => item.id === id);
+      if (balanceItem) {
+        balanceItem.amount += amount;
+      }
+    },
   },
 });
 
