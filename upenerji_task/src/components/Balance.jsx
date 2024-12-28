@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { incrementBalance } from "../redux/feature/balanceReducer";
+import { useSelector } from "react-redux";
 import CreditCardPaymentModal from "./creditCardPaymentModal";
 import LoanPaymentModal from "./loanPaymentModal";
 
