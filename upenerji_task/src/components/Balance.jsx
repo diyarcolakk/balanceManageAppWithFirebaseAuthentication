@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import CreditCardPaymentModal from "./creditCardPaymentModal";
 import LoanPaymentModal from "./loanPaymentModal";
 import CreateCoupon from "./CreateCoupon";
+import { useNavigate } from "react-router-dom";
 const Balance = () => {
   const balanceData = useSelector((state) => state.balance);
+  const navigate = useNavigate();
   const [isTable, setIsTable] = useState(false);
   const [isModalCreditCard, setIsModalCreditCard] = useState(false);
   const [isModalLoan, setIsModalLoan] = useState(false);
   const [isCouponModal, setIsCouponModal] = useState(false);
-
   const [id, setId] = useState(null);
 
   const modalCreditCardHandler = (id) => {
@@ -25,14 +26,26 @@ const Balance = () => {
     setId(id);
   };
 
+  const couponTableHandler = () => {
+    navigate("/coupons");
+  };
+
   return (
     <div className={`container mx-auto p-4`}>
-      <button
-        onClick={() => setIsTable((prev) => !prev)}
-        className="px-4 py-2 mb-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
-      >
-        {isTable ? "Show Table" : "Show Cards"}
-      </button>
+      <div className="flex gap-4">
+        <button
+          onClick={couponTableHandler}
+          className="px-4 py-2 mb-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+        >
+          Coupons Table
+        </button>
+        <button
+          onClick={() => setIsTable((prev) => !prev)}
+          className="px-4 py-2 mb-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+        >
+          {isTable ? "Show Table" : "Show Cards"}
+        </button>
+      </div>
       {!isTable && (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
