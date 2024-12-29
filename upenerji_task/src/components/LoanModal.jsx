@@ -4,7 +4,7 @@ import { incrementBalance } from "../redux/feature/balanceReducer";
 import { useState } from "react";
 import loanModalCheck from "./Validators/validator";
 
-const LoanPaymentModal = ({ id, onClose }) => {
+const LoanModal = ({ id, onClose }) => {
   const dispatch = useDispatch();
   const [loanAmount, setLoanAmount] = useState("");
   const [tcNo, setTcNo] = useState("");
@@ -78,4 +78,4 @@ const LoanPaymentModal = ({ id, onClose }) => {
   );
 };
 
-export default LoanPaymentModal;
+export default LoanModal;

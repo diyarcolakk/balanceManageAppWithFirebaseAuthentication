@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { incrementBalance } from "../redux/feature/balanceReducer";
 import { useState } from "react";
 
-const CreditCardPaymentModal = ({ id, onClose }) => {
+const CreditCardModal = ({ id, onClose }) => {
   const dispatch = useDispatch();
 
   const [amount, setAmount] = useState("");
@@ -77,4 +77,4 @@ const CreditCardPaymentModal = ({ id, onClose }) => {
   );
 };
 
-export default CreditCardPaymentModal;
+export default CreditCardModal;
