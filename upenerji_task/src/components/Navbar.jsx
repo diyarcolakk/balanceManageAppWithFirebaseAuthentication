@@ -35,7 +35,7 @@ const Navbar = () => {
               to="/coupons"
               className="hover:bg-blue-500 px-3 py-2 rounded-md text-lg font-medium"
             >
-              Coupons
+              Kuponlar
             </Link>
           </div>
 

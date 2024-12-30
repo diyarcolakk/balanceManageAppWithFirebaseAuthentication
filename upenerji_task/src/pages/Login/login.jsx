@@ -89,6 +89,17 @@ const Login = () => {
             </div>
           </div>
         </div>
+
+        {/* Bilgi kutucuğu */}
+        <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-lg shadow p-4 text-sm text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+          <h3 className="font-semibold">Test kullanıcı bilgileri</h3>
+          <p>
+            <strong>Username:</strong> upenerji@gmail.com
+          </p>
+          <p>
+            <strong>Password:</strong> 123456
+          </p>
+        </div>
       </section>
     </>
   );
