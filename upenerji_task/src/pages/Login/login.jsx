@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <section className="bg-gray-50 bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -88,17 +88,6 @@ const Login = () => {
               </form>
             </div>
           </div>
-        </div>
-
-        {/* Bilgi kutucuğu */}
-        <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-lg shadow p-4 text-sm text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-          <h3 className="font-semibold">Test kullanıcı bilgileri</h3>
-          <p>
-            <strong>Username:</strong> upenerji@gmail.com
-          </p>
-          <p>
-            <strong>Password:</strong> 123456
-          </p>
         </div>
       </section>
     </>
