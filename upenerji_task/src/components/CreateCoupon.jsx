@@ -1,55 +1,63 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addCoupon } from "../redux/feature/balanceReducer";
 
 const CreateCoupon = ({ id, onClose }) => {
   const [amount, setAmount] = useState("");
   const selector = useSelector((state) => state.balance);
-  console.log(selector);
   const dispatch = useDispatch();
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     const result = selector.filter((balance) => balance.id === id);
     if (result && amount < result[0].amount) {
-      //Uniq bir id için oluşturulan andaki date kullanılıyor. udid vs gibi şeylerde kullanılabilirdi.
-      const coupontCreateDate = Date.now();
+      // Kupon oluşturuluyor
+      const couponCreateDate = Date.now();
       const oneWeekInMillis = 7 * 24 * 60 * 60 * 1000;
-      const couponFinishedAt = coupontCreateDate + oneWeekInMillis;
+      const couponFinishedAt = couponCreateDate + oneWeekInMillis;
       dispatch(
         addCoupon({
           id: result[0].id,
-          couponCode: coupontCreateDate,
+          couponCode: couponCreateDate,
           couponAmount: amount,
-          createdAt: coupontCreateDate,
+          createdAt: couponCreateDate,
           finishedAt: couponFinishedAt,
         })
       );
       onClose();
-    } else alert("Kupon bakiyesi, bakiyeden büyük olamaz.");
+    } else {
+      alert("Kupon bakiyesi, bakiyeden büyük olamaz.");
+    }
   };
 
   return (
-    <div className="bg-gray-300 opacity-90 absolute border border-black flex justify-center items-center flex-col gap-12 top-0 left-0 right-0 bottom-0 w-full h-full">
-      <div className="w-[600px] h-[600px]  bg-black text-white">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center p-4">
+      <div className="bg-white rounded-lg w-full max-w-lg p-8 relative">
         <div
-          className="flex justify-end text-2xl w-full h-[10%] cursor-pointer"
+          className="absolute top-4 right-4 text-2xl text-gray-600 cursor-pointer"
           onClick={onClose}
         >
-          X
+          &times;
         </div>
-        <form
-          className="flex  flex-col gap-12 justify-center items-center  w-full h-[90%]"
-          onSubmit={onSubmitHandler}
-        >
-          <div className="w-[80%]">
-            <label htmlFor="coupon">Kupon Bakiyesi giriniz </label>
+
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+          Kupon Oluştur
+        </h2>
+
+        <form className="flex flex-col gap-6" onSubmit={onSubmitHandler}>
+          <div>
+            <label
+              htmlFor="coupon"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Kupon Bakiyesi giriniz
+            </label>
             <input
               onChange={(e) => setAmount(e.target.value)}
               id="coupon"
               type="text"
-              className="border border-black w-full text-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               pattern="^\d+$"
               required
               title="Lütfen bir sayı girin."
@@ -57,7 +65,7 @@ const CreateCoupon = ({ id, onClose }) => {
           </div>
 
           <button
-            className="border border-white bg-black text-white px-5 py-2 cursor-pointer"
+            className="bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
             type="submit"
           >
             Onaylıyorum

@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom"; // React Router ile sayfa yönlendirmeleri
+import { useState } from "react";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false); // Mobil menü açık mı kapalı mı kontrolü için state tanımlanır
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <nav className="bg-blue-600 text-white shadow-md sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo / Brand */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-semibold">MyApp</h1>
+            <h1 className="text-2xl font-semibold">Bakiye Yönetimi</h1>
           </div>
 
           {/* Navbar Links */}
@@ -37,25 +43,39 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               type="button"
-              className="text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75"
+              className="text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75 border border-white rounded p-1"
               aria-label="Toggle menu"
+              onClick={toggleMenu}
             >
+              {/* Hamburger Icon */}
               <svg
-                className="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
+                className="w-8 h-8" // Increased size for the icon
                 fill="none"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M4 6h16M4 12h16M4 18h16" />
+                {/* Change icon based on menu state */}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  d={
+                    isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
+                  }
+                ></path>
               </svg>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu (Hidden by default, shown when hamburger is clicked) */}
-      <div className="md:hidden bg-blue-700 space-y-4 py-4 px-6">
+      {/* Mobile Dropdown Menu (Açılabilir menü) */}
+      <div
+        className={`md:hidden bg-blue-700 space-y-4 py-4 px-6 ${
+          isOpen ? "block" : "hidden"
+        }`}
+      >
         <Link
           to="/dashboard"
           className="block text-lg text-white hover:bg-blue-500 py-2 px-4 rounded-md"

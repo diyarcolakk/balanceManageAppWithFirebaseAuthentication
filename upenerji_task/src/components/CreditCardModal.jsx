@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { incrementBalance } from "../redux/feature/balanceReducer";
-import { useState } from "react";
 
 const CreditCardModal = ({ id, onClose }) => {
   const dispatch = useDispatch();
 
   const [amount, setAmount] = useState("");
   const [cvv, setCvv] = useState("");
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (cvv === "000") {
@@ -18,55 +18,84 @@ const CreditCardModal = ({ id, onClose }) => {
   };
 
   return (
-    <div className="bg-gray-300 opacity-90 absolute border border-black flex justify-center items-center flex-col gap-12 top-0 left-0 right-0 bottom-0 w-full h-full">
-      <div className="w-[600px] h-[600px]  bg-black text-white">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center p-4">
+      <div className="bg-white rounded-lg w-full max-w-lg p-8 relative">
         <div
-          className="flex justify-end text-2xl w-full h-[10%] cursor-pointer"
+          className="absolute top-4 right-4 text-2xl text-gray-600 cursor-pointer"
           onClick={onClose}
         >
-          X
+          &times;
         </div>
-        <form
-          className="flex  flex-col gap-12 justify-center items-center  w-full h-[90%]"
-          onSubmit={onSubmitHandler}
-        >
-          <div className="w-[80%]">
-            <label htmlFor="">Kart No</label>
+
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+          Kredi Kartı Bilgilerinizi Girin
+        </h2>
+
+        <form className="flex flex-col gap-6" onSubmit={onSubmitHandler}>
+          <div>
+            <label
+              htmlFor="cardNumber"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Kart Numarası
+            </label>
             <input
               type="text"
-              className="border border-black w-full text-black"
+              id="cardNumber"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               pattern="^\d{16}$"
               required
               title="Lütfen tam 16 rakamdan oluşan bir sayı girin."
             />
           </div>
-          <div className="w-[80%] ">
-            <label htmlFor="">Son Kullanma Tarihi</label>
+
+          <div>
+            <label
+              htmlFor="expiryDate"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Son Kullanma Tarihi
+            </label>
             <input
               type="date"
-              className="border border-black w-full text-black"
+              id="expiryDate"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="w-[80%]">
-            <label htmlFor="">CVV</label>
+
+          <div>
+            <label
+              htmlFor="cvv"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              CVV
+            </label>
             <input
               type="text"
-              className="border border-black w-full text-black"
+              id="cvv"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setCvv(e.target.value)}
             />
           </div>
-          <div className="w-[80%]">
-            <label htmlFor="">Amount</label>
+
+          <div>
+            <label
+              htmlFor="amount"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Tutar
+            </label>
             <input
               type="text"
+              id="amount"
               pattern="^\d+$"
-              className="border border-black w-full text-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
 
           <button
-            className="border border-white bg-black text-white px-5 py-2 cursor-pointer"
+            className="bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300"
             type="submit"
           >
             Onaylıyorum
